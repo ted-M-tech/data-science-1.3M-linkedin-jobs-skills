@@ -12,15 +12,17 @@ This project follows a trunk-based development branching model. The main branch 
 
 When creating a new branch, please follow this naming convention:
 
+```
 \`[developername]/issue[#]\`
+```
 
-For example: \`john/issue123\`
+For example: `john/issue123`
 
 This makes it easy to identify who is working on the branch and which issue it relates to.
 
 ### Branching Strategy
 
-\`\`\`
+```
 main (trunk)
 |
 +-- [developername]/issue[1] (feature branch)
@@ -38,7 +40,7 @@ main (trunk)
 +-- (merge)
 |
 (HEAD)
-\`\`\`
+```
 
 ## Instructions
 
