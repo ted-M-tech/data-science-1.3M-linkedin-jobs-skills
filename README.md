@@ -1,8 +1,16 @@
-# 1.3M-linkedin-jobs-skills Analysis
+# 1.3M LinkedIn Jobs & Skills Analysis
+
+[![Live Report](https://img.shields.io/badge/📊_Live_Report-View_Now-38bdf8?style=for-the-badge)](https://ted-m-tech.github.io/data-science-1.3M-linkedin-jobs-skills/)
+
+> **[🔗 View the Interactive Report](https://ted-m-tech.github.io/data-science-1.3M-linkedin-jobs-skills/)** — Analysis of 1.3M+ LinkedIn IT job postings: trends, skills, and geographic insights.
+
+![Report Thumbnail](docs/report/img/thumbnail.png)
+
+---
 
 ## Data
 
-Original Data is from Kaggle: https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024/data
+Original Data is from Kaggle: [1.3M LinkedIn Jobs and Skills 2024](https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024/data)
 
 ## Development Conventions
 
