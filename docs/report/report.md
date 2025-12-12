@@ -1,7 +1,5 @@
-# IT Job Market Analysis Report
-## LinkedIn Job Postings Deep Dive (2024)
+# LinkedIn Job Postings Analysis (2024)
 
----
 
 ## Project Overview
 
@@ -16,7 +14,17 @@ This project serves a **dual purpose**:
 Chosen due to a strong **curiosity about the IT industry** and desire to gain data-driven insights into:
 - What skills are employers actually looking for?
 - Which cities have the most opportunities?
-- How has remote work changed the landscape?
+
+---
+
+## Executive Summary
+
+This report presents a comprehensive analysis of **IT job market trends** based on 1.3 million LinkedIn job postings. The analysis reveals key insights about:
+
+- **Work mode distribution** (Remote, Hybrid, Onsite)
+- **In-demand technical skills** in the IT sector
+- **Geographic distribution** of IT opportunities globally
+- **Vancouver-specific market insights** for local job seekers
 
 ---
 
@@ -68,7 +76,6 @@ With **1.3 million job postings** and **48 million job summaries**, traditional 
 ### PySpark Solution
 Apache Spark provides:
 - ✅ **Distributed processing** across CPU cores
-- ✅ **Lazy evaluation** for optimized query execution
 - ✅ **Memory efficiency** via streaming/chunking
 - ✅ **SQL-like syntax** for familiar data manipulation
 - ✅ **Industry relevance** - used by major tech companies
@@ -122,24 +129,11 @@ To provide actionable insights, skills were processed and categorized:
 
 ---
 
-## Executive Summary
-
-This report presents a comprehensive analysis of **IT job market trends** based on 1.3 million LinkedIn job postings. The analysis reveals key insights about:
-
-- **Work mode distribution** (Remote, Hybrid, Onsite)
-- **In-demand technical skills** in the IT sector
-- **Geographic distribution** of IT opportunities globally
-- **Vancouver-specific market insights** for local job seekers
-
----
-
 ## 1. Work Mode Distribution
 
 ![Work Mode Distribution](img/work_mode_distribution.png)
 
 ### Key Findings:
-- **Remote work** has established itself as a significant portion of IT roles
-- **Hybrid arrangements** are increasingly common, offering flexibility
 - **Onsite requirements** remain for roles requiring physical infrastructure access
 
 ### Implications for Job Seekers:
