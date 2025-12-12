@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Job Market Analysis | LinkedIn Data Report</title>
+    <meta name="description"
+        content="Analysis of 1.3M+ LinkedIn IT job postings. Trends, skills, and geographic insights.">
+
+    <!-- Google Fonts: Inter for UI, Merriweather for long form reading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Mermaid -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            /* Cool & Professional Dark Theme */
+            --bg-body: #0f172a;
+            /* Slate 950 - Rich Dark Background */
+            --bg-card: #1e293b;
+            /* Slate 800 */
+            --bg-glass: rgba(15, 23, 42, 0.85);
+
+            --text-primary: #f8fafc;
+            /* Slate 50 */
+            --text-secondary: #cbd5e1;
+            /* Slate 300 */
+            --text-muted: #94a3b8;
+            /* Slate 400 */
+
+            --accent: #38bdf8;
+            /* Sky 400 - Professional yet vibrant */
+            --accent-glow: rgba(56, 189, 248, 0.15);
+
+            --border: #334155;
+            /* Slate 700 */
+            --border-light: #475569;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.16);
+            --shadow-glow: 0 0 15px rgba(56, 189, 248, 0.15);
+
+            --code-bg: #020617;
+            /* Slate 950 (darker) */
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            font-size: 18px;
+            /* Subtle background gradient */
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 75%);
+            min-height: 100vh;
+        }
+
+        /* Typography Override for UI Elements */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        header,
+        footer,
+        .ui-font,
+        .stat-value,
+        .stat-label,
+        th {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* Glassmorphism Header */
+        header {
+            background: var(--bg-glass);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: '';
+            display: block;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .meta-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 99px;
+            font-weight: 600;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* Modern Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 60px auto 40px;
+            padding: 0 24px;
+        }
+
+        .stat-item {
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Subtle accent line on top of card */
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.5;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        /* Markdown Content Styling */
+        #content {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #content h1 {
+            font-size: 2.75rem;
+            margin-top: 0;
+            margin-bottom: 40px;
+            line-height: 1.2;
+            color: var(--text-primary);
+            /* Gradient Text Effect */
+            background: linear-gradient(to right, #f8fafc, #94a3b8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #content h2 {
+            font-size: 1.8rem;
+            margin-top: 56px;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        #content h2::after {
+            /* Decorative dot */
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-left: 12px;
+            opacity: 0.7;
+        }
+
+        #content h3 {
+            font-size: 1.4rem;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        #content p {
+            margin-bottom: 24px;
+            color: var(--text-secondary);
+        }
+
+        #content strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        /* Images */
+        #content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 40px 0;
+            display: block;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s;
+        }
+
+        #content img:hover {
+            transform: scale(1.01);
+        }
+
+        /* Lists */
+        #content ul {
+            margin-bottom: 24px;
+            padding-left: 20px;
+            color: var(--text-secondary);
+        }
+
+        #content li {
+            margin-bottom: 10px;
+            padding-left: 8px;
+        }
+
+        #content li::marker {
+            color: var(--accent);
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            font-size: 0.9em;
+            margin: 32px 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            color: var(--accent);
+        }
+
+        /* Inline code */
+        p code,
+        li code {
+            background: rgba(56, 189, 248, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            margin: 40px 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+
+        th {
+            text-align: left;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Diagrams */
+        .mermaid {
+            margin: 48px 0;
+            text-align: center;
+            background: white;
+            /* Mermaid default is usually dark on dark, but sometimes needs white canvas or specific theme. */
+            /* Actually, for nice dark mode mermaid, we should set the theme in JS. */
+            /* Let's give it a slight container style */
+            padding: 24px;
+            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 60px 0;
+            margin-top: 100px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: linear-gradient(180deg, var(--bg-body) 0%, #020617 100%);
+        }
+
+        footer a {
+            border-bottom: 1px solid transparent;
+        }
+
+        footer a:hover {
+            color: #fff;
+            border-bottom-color: var(--accent);
+        }
+
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid var(--accent);
+            margin: 32px 0;
+            padding: 16px 24px;
+            background: rgba(56, 189, 248, 0.05);
+            border-radius: 0 8px 8px 0;
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            #content h1 {
+                font-size: 2rem;
+            }
+
+            body {
+                font-size: 16px;
+            }
+
+            .stat-item {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">IT Job Analysis</a>
+            <span class="meta-tag">Data Science Portfolio</span>
+        </div>
+    </header>
+
+    <!-- Key Metrics Highlight -->
+    <div class="stats-grid">
+        <div class="stat-item">
+            <span class="stat-value">1.3M</span>
+            <span class="stat-label">Records Processed</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">50+</span>
+            <span class="stat-label">Cities Analyzed</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">PySpark</span>
+            <span class="stat-label">Processing Engine</span>
+        </div>
+    </div>
+
+    <!-- Main Report Content -->
+    <main class="container">
+        <div id="content">
+            <!-- Loading State -->
+            <div style="text-align: center; padding: 40px; color: #718096; font-family: 'Inter', sans-serif;">
+                Loading analysis report...
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Project by <strong>Ted M.</strong></p>
+        <p style="margin-top: 8px;">
+            <a href="https://github.com/ted-M-tech/data-science-1.3M-linkedin-jobs-skills" target="_blank">View Source
+                on GitHub</a>
+        </p>
+    </footer>
+
+    <script>
+        // Init Mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'neutral', // Professional neutral theme
+            fontFamily: 'Inter, sans-serif'
+        });
+
+        // Fetch and Render Markdown
+        fetch('report/report.md')
+            .then(r => {
+                if (!r.ok) throw new Error("Failed to load report.md");
+                return r.text();
+            })
+            .then(md => {
+                const contentDiv = document.getElementById('content');
+
+                // Configure Marked
+                marked.setOptions({
+                    headerIds: true,
+                    gfm: true,
+                });
+
+                // Convert Markdown
+                contentDiv.innerHTML = marked.parse(md);
+
+                // Process Mermaid Diagrams within Markdown
+                const codeBlocks = contentDiv.querySelectorAll('pre code.language-mermaid');
+                codeBlocks.forEach((block, index) => {
+                    const graphDefinition = block.textContent;
+                    const pre = block.parentElement;
+                    const div = document.createElement('div');
+                    div.className = 'mermaid';
+                    div.setAttribute('id', 'mermaid-chart-' + index);
+                    // Clean content for rendering
+                    div.textContent = graphDefinition;
+                    pre.replaceWith(div);
+                });
+
+                // Run Mermaid Rendering
+                mermaid.run();
+
+                // Fix Image Paths (Assume relative to index.html is report/img/...)
+                // report.md likely has images as "img/foo.png".
+                // Since index.html is in docs/, and images are in docs/report/img/,
+                // we need to ensure paths are correct. 
+                // However, fetching 'report/report.md' might mean we are serving relative to docs/.
+                // If the markdown content has "img/x.png", and we stay at "docs/", that is "docs/img/x.png" (Wrong).
+                // We need "docs/report/img/x.png".
+                const images = contentDiv.querySelectorAll('img');
+                images.forEach(img => {
+                    const src = img.getAttribute('src');
+                    // Avoid fixing absolute paths or data URIs
+                    if (src && !src.startsWith('http') && !src.startsWith('data:') && !src.startsWith('/')) {
+                        img.setAttribute('src', 'report/' + src);
+                    }
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById('content').innerHTML = `
+                    <div style="padding: 20px; text-align: center; color: #e53e3e; font-family: 'Inter', sans-serif">
+                        <h3>Error loading report</h3>
+                        <p>Please ensure that <code>report/report.md</code> exists relative to this file.</p>
+                    </div>
+                `;
+            });
+    </script>
+</body>
+
+</html>
