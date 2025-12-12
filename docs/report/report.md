@@ -28,6 +28,21 @@ This report presents a comprehensive analysis of **IT job market trends** based 
 
 ---
 
+## Technical Methodology
+
+### Tools & Technologies
+- **PySpark**: Distributed data processing
+- **Matplotlib/Seaborn**: Static visualizations
+- **Python**: Data manipulation and analysis
+
+### Data Processing Pipeline
+
+![data flow](img/data_flow.png)
+
+### Reproducibility
+- All analysis code available in `codes/eda.ipynb`
+- GitHub Repository: [ted-M-tech/data-science-1.3M-linkedin-jobs-skills](https://github.com/ted-M-tech/data-science-1.3M-linkedin-jobs-skills)
+
 ## Data Overview
 
 ### Data Source
@@ -206,23 +221,6 @@ To provide actionable insights, skills were processed and categorized:
 - Build a **portfolio** of projects demonstrating full-stack capabilities
 - Develop **specialization** in high-growth areas (AI/ML, Cloud Architecture, DevSecOps)
 - Consider **contract/freelance** work to build diverse experience
-
----
-
-## Technical Methodology
-
-### Tools & Technologies
-- **PySpark**: Distributed data processing
-- **Matplotlib/Seaborn**: Static visualizations
-- **Python**: Data manipulation and analysis
-
-### Data Processing Pipeline
-
-![data flow](img/data_flow.png)
-
-### Reproducibility
-- All analysis code available in `codes/eda.ipynb`
-- GitHub Repository: [ted-M-tech/data-science-1.3M-linkedin-jobs-skills](https://github.com/ted-M-tech/data-science-1.3M-linkedin-jobs-skills)
 
 ---
 
