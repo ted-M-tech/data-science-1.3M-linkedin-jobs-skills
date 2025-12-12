@@ -1,7 +1,5 @@
-# IT Job Market Analysis Report
-## LinkedIn Job Postings Deep Dive (2024)
+# LinkedIn Job Postings Analysis (2024)
 
----
 
 ## Project Overview
 
@@ -16,11 +14,25 @@ This project serves a **dual purpose**:
 Chosen due to a strong **curiosity about the IT industry** and desire to gain data-driven insights into:
 - What skills are employers actually looking for?
 - Which cities have the most opportunities?
-- How has remote work changed the landscape?
+
+---
+
+## Executive Summary
+
+This report presents a comprehensive analysis of **IT job market trends** based on 1.3 million LinkedIn job postings. The analysis reveals key insights about:
+
+- **Work mode distribution** (Remote, Hybrid, Onsite)
+- **In-demand technical skills** in the IT sector
+- **Geographic distribution** of IT opportunities globally
+- **Vancouver-specific market insights** for local job seekers
 
 ---
 
 ## Data Overview
+
+### Data Source
+
+The dataset were downloaded from Kaggle: [LinkedIn Job Postings](https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024/data)
 
 ### Dataset Statistics
 
@@ -68,7 +80,6 @@ With **1.3 million job postings** and **48 million job summaries**, traditional 
 ### PySpark Solution
 Apache Spark provides:
 - ✅ **Distributed processing** across CPU cores
-- ✅ **Lazy evaluation** for optimized query execution
 - ✅ **Memory efficiency** via streaming/chunking
 - ✅ **SQL-like syntax** for familiar data manipulation
 - ✅ **Industry relevance** - used by major tech companies
@@ -122,30 +133,12 @@ To provide actionable insights, skills were processed and categorized:
 
 ---
 
-## Executive Summary
-
-This report presents a comprehensive analysis of **IT job market trends** based on 1.3 million LinkedIn job postings. The analysis reveals key insights about:
-
-- **Work mode distribution** (Remote, Hybrid, Onsite)
-- **In-demand technical skills** in the IT sector
-- **Geographic distribution** of IT opportunities globally
-- **Vancouver-specific market insights** for local job seekers
-
----
-
 ## 1. Work Mode Distribution
 
 ![Work Mode Distribution](img/work_mode_distribution.png)
 
 ### Key Findings:
-- **Remote work** has established itself as a significant portion of IT roles
-- **Hybrid arrangements** are increasingly common, offering flexibility
 - **Onsite requirements** remain for roles requiring physical infrastructure access
-
-### Implications for Job Seekers:
-- Expand job search beyond local geography for remote opportunities
-- Highlight remote work experience and self-management skills
-- Consider hybrid roles for work-life balance with team collaboration
 
 ---
 
@@ -191,7 +184,7 @@ This report presents a comprehensive analysis of **IT job market trends** based 
 ![Top Cities - Canada](img/top_cities_canada.png)
 
 ### Key Findings:
-- **Toronto, Montreal, Vancouver** dominate Canadian IT market
+- **Toronto, Montreal, Vancouver, Calgary** dominate Canadian IT market
 
 ---
 
@@ -200,9 +193,6 @@ This report presents a comprehensive analysis of **IT job market trends** based 
 ### 5.1 Top Skills in Vancouver
 
 ![Vancouver Skills](img/vancouver_skills.png)
-
-### Key Findings:
-- **Similar to global trends** with emphasis on cloud and programming
 
 ---
 
@@ -224,7 +214,6 @@ This report presents a comprehensive analysis of **IT job market trends** based 
 ### Tools & Technologies
 - **PySpark**: Distributed data processing
 - **Matplotlib/Seaborn**: Static visualizations
-- **Plotly**: Interactive maps and charts
 - **Python**: Data manipulation and analysis
 
 ### Data Processing Pipeline
@@ -233,18 +222,8 @@ This report presents a comprehensive analysis of **IT job market trends** based 
 
 ### Reproducibility
 - All analysis code available in `codes/eda.ipynb`
-- Full dataset: `resources/*.csv`
+- GitHub Repository: [ted-M-tech/data-science-1.3M-linkedin-jobs-skills](https://github.com/ted-M-tech/data-science-1.3M-linkedin-jobs-skills)
 
 ---
 
-## Appendix
-
-### Data Limitations:
-- Job postings reflect **advertised positions**, not actual hires
-- **Keyword filtering** may include false positives or miss some IT roles
-- **Geographic data** limited to posted locations, not actual work locations
-
----
-
-*Report generated: December 2025*
-*GitHub Repository: [ted-M-tech/data-science-1.3M-linkedin-jobs-skills](https://github.com/ted-M-tech/data-science-1.3M-linkedin-jobs-skills)*
+*Report generated: December 2025* by Tetsuya Maeda
