@@ -140,6 +140,8 @@ df_it_jobs = df_jobs.filter(col("job_title").rlike(it_keywords))
 
 **Result**: ~300K IT-specific job postings from 1.3M total records.
 
+![IT Job Percentage](img/it_job_percentage.png)
+
 ### 5. Skill Categorization Strategy
 To provide actionable insights, skills were processed and categorized:
 - **Hard Skills**: Technical competencies (e.g., Python, SQL, AWS, Docker) extracted via keyword matching against a tech glossary.
